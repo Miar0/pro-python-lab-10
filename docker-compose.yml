@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  hotel-booking:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hotel-booking:1.0.0
+    container_name: hotel_booking_app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=Hotel Booking System
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - DATABASE_URL=sqlite:////app/data/hotel.db
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    volumes:
+      - hotel_data:/app/data
+
+volumes:
+  hotel_data:
+    name: hotel_booking_data
